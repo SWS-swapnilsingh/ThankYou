@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — YoTube Supporters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #E8362A;
+      --red-dark: #b52019;
+      --red-soft: #fdf1f0;
+      --ink: #1a1410;
+      --ink-mid: #4a3f38;
+      --ink-light: #8a7e78;
+      --cream: #faf8f5;
+      --warm-white: #fff9f4;
+      --gold: #c8922a;
+      --gold-light: #f5e6c8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 2rem 6rem;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 30%, rgba(232,54,42,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 70%, rgba(200,146,42,0.12) 0%, transparent 60%);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,146,42,0.4);
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 2.2rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      color: #fff;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .hero-icon {
+      margin-top: 3rem;
+      position: relative;
+    }
+
+    .icon-ring {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(232,54,42,0.15);
+      border: 1px solid rgba(232,54,42,0.3);
+    }
+
+    .icon-ring svg {
+      width: 38px;
+      height: 38px;
+    }
+
+    /* ── PROGRESS SECTION ── */
+    .section-progress {
+      background: var(--warm-white);
+      padding: 4rem 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.6rem;
+    }
+
+    .progress-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Progress fill width is now set dynamically via JS */
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--red-dark), var(--red));
+      border-radius: 100px;
+      transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 14px;
+      color: var(--ink-light);
+    }
+
+    .progress-stats strong {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--red);
+    }
+
+    /* ── ABOUT SECTION ── */
+    .section-about {
+      padding: 5rem 2rem;
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .about-card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 16px;
+      padding: 1.8rem;
+    }
+
+    .about-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--red-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.1rem;
+    }
+
+    .about-card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--red);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .about-card h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+      color: var(--ink);
+    }
+
+    .about-card p {
+      font-size: 14px;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* ── DONOR WALL ── */
+    .section-donors {
+      background: var(--ink);
+      padding: 5rem 2rem;
+    }
+
+    .section-donors .section-label {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .section-donors .progress-heading {
+      color: white;
+    }
+
+    .donor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 2.5rem;
+    }
+
+    .donor-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+      transition: background 0.25s, border-color 0.25s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .donor-card:hover {
+      background: rgba(232,54,42,0.12);
+      border-color: rgba(232,54,42,0.3);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .donor-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin: 0 auto 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 15px;
+      color: white;
+    }
+
+    .donor-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+    .donor-amount {
+      font-size: 12px;
+      color: var(--gold);
+    }
+
+    /* ── DONOR LIST ── */
+    .section-list {
+      padding: 5rem 2rem;
+      background: var(--cream);
+    }
+
+    .donor-list {
+      margin-top: 2rem;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .donor-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: background 0.18s;
+      animation: fadeUp 0.45s ease both;
+    }
+
+    .donor-row:last-child { border-bottom: none; }
+    .donor-row:hover { background: var(--red-soft); }
+
+    .donor-row.top-donor {
+      background: linear-gradient(90deg, rgba(200,146,42,0.06), transparent);
+    }
+    .donor-row.top-donor:hover { background: var(--red-soft); }
+
+    .rank-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .rank-1 { background: #fef3c7; color: #92400e; font-size: 18px; }
+    .rank-2 { background: #f1f5f9; color: #475569; font-size: 16px; }
+    .rank-3 { background: #fef2f2; color: #991b1b; font-size: 16px; }
+    .rank-n  { background: rgba(0,0,0,0.05); color: var(--ink-light); }
+
+    .donor-row-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+    .donor-row-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .donor-row-date {
+      font-size: 12px;
+      color: var(--ink-light);
+    }
+
+    .donor-row-amount {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--red);
+      white-space: nowrap;
+    }
+
+    .donor-row-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .tag-top    { background: var(--gold-light); color: #7c4e05; }
+    .tag-kind   { background: #e0f2fe; color: #0369a1; }
+    .tag-anon   { background: #f3f4f6; color: #6b7280; }
+    .tag-heart  { background: #fce7f3; color: #9d174d; }
+
+    .list-header {
+      display: grid;
+      grid-template-columns: 48px 1fr auto auto;
+      gap: 1rem;
+      padding: 0.7rem 1.4rem;
+      background: rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .list-footer {
+      padding: 1rem 1.4rem;
+      background: rgba(0,0,0,0.02);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    .list-footer strong { color: var(--red); font-size: 15px; }
+
+    @media (max-width: 500px) {
+      .donor-row { grid-template-columns: 36px 1fr auto; }
+      .donor-row-tag { display: none; }
+      .list-header { grid-template-columns: 36px 1fr auto; }
+      .list-header span:last-child { display: none; }
+    }
+
+    /* ── THANK YOU LETTER ── */
+    .section-letter {
+      padding: 5rem 2rem;
+      background: var(--warm-white);
+    }
+
+    .letter-box {
+      max-width: 620px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 20px;
+      padding: 3rem;
+      position: relative;
+    }
+
+    .letter-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--red-dark), var(--red), var(--gold));
+      border-radius: 20px 20px 0 0;
+    }
+
+    .letter-date {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-bottom: 2rem;
+    }
+
+    .letter-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--ink-mid);
+    }
+
+    .letter-body p + p {
+      margin-top: 1.2rem;
+    }
+
+    .letter-body strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .letter-sig {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .letter-sig-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--red);
+    }
+
+    .letter-sig-role {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-top: 3px;
+    }
+
+    /* ── APP PREVIEW ── */
+    .section-app {
+      padding: 5rem 2rem;
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink);
+      color: white;
+      border-radius: 100px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 2rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .app-badge:hover {
+      background: var(--red-dark);
+    }
+
+    .app-badge svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .pill {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-size: 13px;
+      color: var(--ink-mid);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 13px;
+    }
+
+    footer span {
+      color: var(--red);
+    }
+
+    /* ── ANIMATIONS ── */
+    .hero-tag,
+    .hero h1,
+    .hero-sub,
+    .hero-icon {
+      animation: heroIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero h1 { animation-delay: 0.1s; }
+    .hero-sub { animation-delay: 0.2s; }
+    .hero-icon { animation-delay: 0.3s; }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">A heartfelt thank you</div>
+  <h1>You made<br/><em>it possible.</em></h1>
+  <p class="hero-sub">Every single contribution — big or small — brings this app one step closer to reaching people who need a cleaner YouTube experience.</p>
+  <div class="hero-icon">
+    <div class="icon-ring">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8362A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section class="section-progress">
+  <div class="container">
+    <p class="section-label">Funding Goal</p>
+    <h2 class="progress-heading">₹2,500 to unlock the Play Store</h2>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-stats">
+      <!-- These are now filled dynamically by JS -->
+      <span><strong id="raisedAmount"></strong> raised so far</span>
+      <span>Goal: ₹2,500</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT THE APP -->
+<section class="section-about">
+  <div class="container">
+    <p class="section-label">What your donation is building</p>
+    <h2 class="progress-heading" style="margin-bottom: 2.5rem;">A distraction-free YouTube experience</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0A9 9 0 0 0 3 12"/><path d="M9 10h.01M15 10h.01M9.5 15a3.5 3.5 0 0 0 5 0"/></svg>
+        </div>
+        <h3>No distractions</h3>
+        <p>No recommended videos — just the content you actually searched for.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Watch history stays on</h3>
+        <p>Unlike other focus tools, your watch history stays fully intact so YouTube keeps learning what you love.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <h3>Built for mobile</h3>
+        <p>A native Android app designed for your phone — clean, fast, and easy to use anywhere, anytime.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        </div>
+        <h3>Open & honest</h3>
+        <p>Built by one person, funded by community — just a passion project done right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONOR WALL -->
+<section class="section-donors">
+  <div class="container">
+    <p class="section-label">Our amazing supporters</p>
+    <h2 class="progress-heading">The people who believed first</h2>
+    <div class="donor-grid" id="donorGrid"></div>
+  </div>
+</section>
+
+<!-- DONOR LEADERBOARD LIST -->
+<section class="section-list">
+  <div class="container">
+    <p class="section-label">Hall of fame</p>
+    <h2 class="progress-heading">Every contributor, listed with gratitude</h2>
+    <div class="donor-list" id="donorList"></div>
+  </div>
+</section>
+
+<!-- THANK YOU LETTER -->
+<section class="section-letter">
+  <div class="container">
+    <div class="letter-box">
+      <p class="letter-date">June 2025</p>
+      <div class="letter-body">
+        <p>Dear supporter,</p>
+        <p>When I started this project, I honestly wasn't sure anyone would care. I'm just one person, with a secondhand laptop, trying to solve a problem I felt deeply — YouTube is an amazing place, but it's designed to steal your time.</p>
+        <p>Your contribution — however big or small — means <strong>I don't have to give up</strong>. The $25 Google Play developer fee is a tiny number in most people's lives, but it was a real barrier for me. You removed it.</p>
+        <p>This app is going to help people study better, focus more, and reclaim hours of their lives. And when someone opens it for the first time and feels that relief — <strong>that's because of you.</strong></p>
+        <p>I promise to build something you'll be proud to have supported. Every update, every bug fix, every feature — I'll carry your trust with me.</p>
+        <p>From the bottom of my heart,</p>
+      </div>
+      <div class="letter-sig">
+        <p class="letter-sig-name">The YoTube Developer</p>
+        <p class="letter-sig-role">Solo developer · Lucknow, India</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP PREVIEW -->
+<section class="section-app">
+  <div class="container">
+    <p class="section-label">Coming soon</p>
+    <h2 class="progress-heading" style="text-align:center;">YoTube for Android</h2>
+    <p style="color:var(--ink-light); max-width:480px; margin:0 auto; font-size:15px; line-height:1.7;">The app will be on the Play Store as soon as the goal is met. Supporters will be the first to know.</p>
+    <div class="feature-pills">
+      <span class="pill">✦ History stays intact</span>
+      <span class="pill">✦ Clean search UI</span>
+      <span class="pill">✦ Free to download</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Made with <span>♥</span> by a solo developer in Lucknow, India</p>
+  <p style="margin-top:0.5rem;">Every rupee donated goes directly to the Google Play registration fee.</p>
+</footer>
+
+<script>
+  // ── DONOR DATA ──
+  // To add a new donor, just add a new line here.
+  // The progress bar and "raised so far" will update automatically.
+  const donors = [
+    { name: "Aman Obaid", amt: 150, date: "Jun 7", color: "#7F77DD", tag: "tag-anon", tagLabel: "Supporter" },
+    { name: "Prakhar Singh", amt: 75, date: "Jun 7", color: "#7F77DD", tag: "tag-anon", tagLabel: "Supporter" },
+  ];
+
+  const GOAL = 2500; // Change this if your goal changes
+
+  // ── CALCULATE TOTALS ──
+  const totalRaised = donors.reduce((sum, d) => sum + d.amt, 0);
+  const percent = Math.min((totalRaised / GOAL) * 100, 100); // cap at 100%
+
+  // ── UPDATE PROGRESS BAR ──
+  // We use a short delay so the CSS transition plays on page load
+  const fillEl = document.getElementById('progressFill');
+  setTimeout(() => {
+    fillEl.style.width = percent + '%';
+  }, 300);
+
+  // ── UPDATE "RAISED SO FAR" TEXT ──
+  document.getElementById('raisedAmount').textContent = '₹' + totalRaised.toLocaleString('en-IN');
+
+  // ── DONOR CARD GRID (top 10) ──
+  const grid = document.getElementById('donorGrid');
+  donors.slice(0, 10).forEach((d, i) => {
+    const initials = d.name === "Anonymous"
+      ? "?"
+      : d.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+    const card = document.createElement('div');
+    card.className = 'donor-card';
+    card.style.animationDelay = `${i * 0.07}s`;
+    card.innerHTML = `
+      <div class="donor-avatar" style="background:${d.color}22; border:1px solid ${d.color}44;">
+        <span style="color:${d.color}">${initials}</span>
+      </div>
+      <p class="donor-name">${d.name}</p>
+      <p class="donor-amount">₹${d.amt.toLocaleString('en-IN')}</p>
+    `;
+    grid.appendChild(card);
+  });
+
+  // ── DONOR LIST (all, sorted by amount descending) ──
+  const listWrap = document.getElementById('donorList');
+  const rankIcons = ["🥇", "🥈", "🥉"];
+
+  const header = document.createElement('div');
+  header.className = 'list-header';
+  header.innerHTML = `<span>#</span><span>Supporter</span><span>Amount</span><span>Badge</span>`;
+  listWrap.appendChild(header);
+
+  const sorted = [...donors].sort((a, b) => b.amt - a.amt);
+
+  sorted.forEach((d, i) => {
+    const row = document.createElement('div');
+    row.className = 'donor-row' + (i < 3 ? ' top-donor' : '');
+    row.style.animationDelay = `${i * 0.05}s`;
+
+    const rankHTML = i < 3
+      ? `<div class="rank-badge rank-${i + 1}">${rankIcons[i]}</div>`
+      : `<div class="rank-badge rank-n">${i + 1}</div>`;
+
+    row.innerHTML = `
+      ${rankHTML}
+      <div class="donor-row-info">
+        <span class="donor-row-name">${d.name}</span>
+        <span class="donor-row-date">Donated on ${d.date}, 2026</span>
+      </div>
+      <span class="donor-row-amount">₹${d.amt.toLocaleString('en-IN')}</span>
+      <span class="donor-row-tag ${d.tag}">${d.tagLabel}</span>
+    `;
+    listWrap.appendChild(row);
+  });
+
+  // ── LIST FOOTER SUMMARY ──
+  const listFooter = document.createElement('div');
+  listFooter.className = 'list-footer';
+  listFooter.innerHTML = `
+    <span>${donors.length} generous supporter${donors.length !== 1 ? 's' : ''}</span>
+    <span>Total raised: <strong>₹${totalRaised.toLocaleString('en-IN')}</strong></span>
+  `;
+  listWrap.appendChild(listFooter);
+</script>
+
+</body>
+</html>
